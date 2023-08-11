@@ -30,11 +30,32 @@ connect();
 
 ////////////////////////////////////////////////////////////
 
-const userSchema = new mongoose.schema ({
+
+// Define the userSchema before creating the User model
+const userSchema = new mongoose.Schema({
     username: String,
     password: String
 });
+
 const User = mongoose.model('User', userSchema);
+
+const user = new User({
+    username: 'Jack',
+    password: '12345'
+});
+
+// Use async/await to handle the result of the save operation
+async function saveUser() {
+    try {
+        await user.save();
+        console.log('New User has been saved to the database successfully');
+    } catch (error) {
+        console.error('Error saving user to the database:', error.message);
+    }
+}
+
+// Call the async function to save the user
+saveUser();
 
 ////////////////////////////////////////////////////////////
 
